@@ -19,22 +19,21 @@ import com.santander.bankline.api.service.CorrentistaService;
 public class CorrentistaController {
 	
 	@Autowired
-	private CorrentistaRepository repository;
+	private CorrentistaRepository correntistaRepository;
 	
 	@Autowired
-	private CorrentistaService service;
+	private CorrentistaService correntistaService;
 	
 	//Metodo retorna correntistas
 	@GetMapping
 	public List<Correntista> findAll(){
-		return repository.findAll();
-
+		return correntistaRepository.findAll();
 	}
 	
 	//Metodo adiciona correntista
 	@PostMapping
-	private void save(@RequestBody NovoCorrentista correntista) {	
-		service.save(correntista);
+	private void saveNewCorrentista(@RequestBody NovoCorrentista correntista) {	
+		correntistaService.saveCorrentista(correntista);
 	}
 	
 }

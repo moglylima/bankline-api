@@ -14,26 +14,21 @@ import com.santander.bankline.api.repository.CorrentistaRepository;
 public class CorrentistaService {
 	
 	@Autowired
-	private CorrentistaRepository repository; 
-	
-	public void save(NovoCorrentista novoCorrentista) {	
+	private CorrentistaRepository correntistaRepository; 
+		
+	public void saveCorrentista(NovoCorrentista novoCorrentista) {	
 		//Criando correntista
 		Correntista correntista = new Correntista();
 		correntista.setCpf(novoCorrentista.getCpf());
 		correntista.setNome(novoCorrentista.getNome());
-		
 		//Criando dados da conta
 		Conta conta = new Conta();
 		conta.setSaldo(0.0);
-		//Criando numero da conta com base no (Date)
-		conta.setNumero(new Date().getTime());
-			
-		
-		//Setando conta ao novo correntista
+		conta.setNumero(new Date().getTime());		
 		correntista.setConta(conta);
 		
 		//Adicionando finalmente
-		repository.save(correntista);
+		correntistaRepository.save(correntista);
 		
 
 	}

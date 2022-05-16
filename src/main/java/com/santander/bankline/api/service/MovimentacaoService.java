@@ -14,22 +14,21 @@ import com.santander.bankline.api.repository.MovimentacaoRepository;
 
 @Service
 public class MovimentacaoService {
+	
 	@Autowired
-	private MovimentacaoRepository repository;
+	private MovimentacaoRepository movimentacaoRepository;
 	
 	@Autowired
 	private CorrentistaRepository correntistaRepository;
 	
-	public void save(NovaMovimentacao novaMovimentacao) {
+	public void saveNewMovimentacao(NovaMovimentacao novaMovimentacao) {
 		Movimentacao movimentacao = new Movimentacao();
 		
-		//Setando menos se saldo for negativo
 		Double valor = novaMovimentacao.getValor();
-		
-		//
-		if(novaMovimentacao.getTipo() == MovimentacaoTipo.DESPESA) {
-			valor = (valor * -1);			
+		if (novaMovimentacao.getTipo() == MovimentacaoTipo.DESPESA) {
+			valor = valor *-1;			
 		}
+		
 		
 		movimentacao.setDataHora(LocalDateTime.now());
 		movimentacao.setDescricao(novaMovimentacao.getDescricao());
@@ -42,9 +41,8 @@ public class MovimentacaoService {
 			correntista.getConta().setSaldo(correntista.getConta().getSaldo() + valor);
 			correntistaRepository.save(correntista);
 		}
-		repository.save(movimentacao);
+		movimentacaoRepository.save(movimentacao);
 		
-		
-	}
+	}	
 
 }
